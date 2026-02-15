@@ -111,8 +111,18 @@ const CATEGORY_META: Record<string, { icon: string; color: string }> = {
 function ProjectCard({ project }: { project: LabProject }) {
   const [imgLoaded, setImgLoaded] = useState(false)
   const [imgError, setImgError] = useState(false)
+  const [timedOut, setTimedOut] = useState(false)
   const catMeta = CATEGORY_META[project.category]
-  const thumbUrl = `https://image.thum.io/get/width/600/crop/400/https://${project.url.replace('https://', '')}`
+  const thumbUrl = `https://image.thum.io/get/wait/5/width/600/crop/400/noanimate/https://${project.url.replace('https://', '')}`
+
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      if (!imgLoaded) setTimedOut(true)
+    }, 8000)
+    return () => clearTimeout(timer)
+  }, [imgLoaded])
+
+  const showPlaceholder = !imgLoaded || imgError || timedOut
 
   return (
     <a
@@ -123,7 +133,7 @@ function ProjectCard({ project }: { project: LabProject }) {
       style={{ '--cat-color': catMeta?.color || '#666' } as React.CSSProperties}
     >
       <div className="lab-card-thumb">
-        {!imgError && (
+        {!imgError && !timedOut && (
           <img
             src={thumbUrl}
             alt=""
@@ -133,7 +143,7 @@ function ProjectCard({ project }: { project: LabProject }) {
             style={{ opacity: imgLoaded ? 1 : 0 }}
           />
         )}
-        {(!imgLoaded || imgError) && (
+        {showPlaceholder && (
           <div className="lab-card-thumb-placeholder">
             <span className="lab-card-thumb-emoji">{project.emoji}</span>
           </div>
