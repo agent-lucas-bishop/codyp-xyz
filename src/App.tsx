@@ -176,6 +176,14 @@ function Projects() {
       points: ['Identify countries from progressively revealed flags', 'Multiple difficulty levels', 'Learn world flags daily'],
     },
     {
+      title: 'Scale of...',
+      subtitle: 'Interactive powers of 10 explorer',
+      zone: 'gray',
+      badge: 'LIVE',
+      link: 'https://scale-of.vercel.app',
+      points: ['Scroll from a grain of sand to the observable universe', '18 objects with SVG silhouettes and fun facts', 'Logarithmic scale with smooth transitions'],
+    },
+    {
       title: 'GREENLIGHT',
       subtitle: 'Movie studio roguelite',
       zone: 'gray',
