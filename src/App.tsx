@@ -96,6 +96,14 @@ function Projects() {
       points: ['The Credits, The Poster, The Year', 'Art deco cinema aesthetic', 'TMDB-powered'],
     },
     {
+      title: 'The Money Printer',
+      subtitle: 'Watch money print at different speeds',
+      zone: 'green',
+      badge: 'LIVE',
+      link: 'https://money-printer-two.vercel.app',
+      points: ['23 tiers from minimum wage to global GDP', 'Bills evolve from singles to vault pallets', 'Real-time counters show earnings since page load'],
+    },
+    {
       title: 'Property Perfect',
       subtitle: 'SOLIDWORKS properties.txt editor',
       zone: 'cyan',
