@@ -112,6 +112,14 @@ function Projects() {
       points: ['Create & manage custom property lists', '8 industry templates + blank/default', 'Import existing files, hundreds of preloaded properties'],
     },
     {
+      title: 'Odds Oracle',
+      subtitle: 'Quick-fire probability trainer',
+      zone: 'purple',
+      badge: 'LIVE',
+      link: 'https://odds-oracle-three.vercel.app',
+      points: ['Guess real-world probabilities across 5 categories', 'Log-scale scoring rewards precision', '60 curated questions from casino to absurd'],
+    },
+    {
       title: '21 Pixel Dojo',
       subtitle: 'Blackjack training app',
       zone: 'red',
