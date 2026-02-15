@@ -176,6 +176,14 @@ function Projects() {
       points: ['Interactive wealth visualization', 'See how far $200 billion really goes', 'Fun perspective on extreme wealth'],
     },
     {
+      title: 'Cosmole',
+      subtitle: 'Daily celestial body guessing game',
+      zone: 'purple',
+      badge: 'LIVE',
+      link: 'https://cosmole.vercel.app',
+      points: ['Guess planets, moons, and more from progressive clues', 'Deep space visual theme', '38 celestial bodies with handcrafted clues'],
+    },
+    {
       title: 'Life in Weeks',
       subtitle: 'Visualize your entire life as a grid of dots',
       zone: 'gray',
