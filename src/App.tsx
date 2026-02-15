@@ -191,6 +191,22 @@ function Projects() {
       link: 'https://life-in-weeks-orcin-xi.vercel.app',
       points: ['Each dot represents one week of your life', 'Powerful perspective on time', 'Inspired by the Wait But Why visualization'],
     },
+    {
+      title: 'The Daily Hub',
+      subtitle: 'Play all your daily challenges in one place',
+      zone: 'red',
+      badge: 'LIVE',
+      link: 'https://daily-hub-nine.vercel.app',
+      points: ['Unified portal for all daily games', 'Completion tracker resets daily', 'Retro arcade aesthetic'],
+    },
+    {
+      title: 'Earth Right Now',
+      subtitle: 'Real-time dashboard of our planet',
+      zone: 'cyan',
+      badge: 'LIVE',
+      link: 'https://earth-right-now.vercel.app',
+      points: ['ISS location, moon phase, population counter', 'Real-time data from public APIs', 'Contemplative pale blue dot aesthetic'],
+    },
   ]
 
   const privateProjects: Project[] = [
