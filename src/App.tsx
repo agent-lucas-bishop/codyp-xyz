@@ -1,4 +1,6 @@
 import { useState, useEffect } from 'react'
+import Lab from './Lab'
+import './lab.css'
 
 type Tab = 'projects' | 'about' | 'blog' | 'contact'
 
@@ -442,13 +444,7 @@ function Contact() {
   )
 }
 
-interface LabProject {
-  name: string
-  url: string
-  category: string
-}
-
-const LAB_PROJECTS: LabProject[] = [
+/* REMOVED_START
   // Daily Games
   { name: 'Cinéphile Daily', url: 'https://cinephile.codyp.xyz', category: 'Daily Games' },
   { name: 'Chromacle', url: 'https://chromacle.vercel.app', category: 'Daily Games' },
@@ -621,9 +617,7 @@ function Lab() {
           codyp.xyz
         </div>
       </div>
-    </div>
-  )
-}
+REMOVED_END */
 
 export default function App() {
   const [activeTab, setActiveTab] = useState<Tab>('projects')
