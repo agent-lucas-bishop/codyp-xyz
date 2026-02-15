@@ -131,7 +131,7 @@ function Projects() {
 
   const privateProjects: Project[] = [
     {
-      title: 'Crittr Havens',
+      title: 'CrittrHavens',
       subtitle: 'Reptile management app',
       zone: 'green',
       badge: 'IN DEV',
@@ -139,7 +139,7 @@ function Projects() {
         { value: '7', label: 'Months Dev' },
         { value: 'iOS', label: 'Platform' },
       ],
-      points: ['Feeding schedules & shed tracking', 'Habitat management', 'React + Capacitor'],
+      points: ['Feeding schedules, shed tracking & habitat management', 'Gets complicated fast with 15+ tanks', 'React + Capacitor for iOS'],
     },
     {
       title: 'Price Navigator',
@@ -201,18 +201,18 @@ function About() {
 
       <div className="callout info">
         <span className="callout-label">Who I Am</span>
-        <h4>Applications Engineer by day, builder by night</h4>
         <p>
           I'm an Applications Engineer at GSC, where I work with SolidWorks and the
-          3DEXPERIENCE platform. I've been in the industry since 2017 — long enough to
-          publish an e-book (<em>How to Be a SOLIDWORKS Superhero</em>) and help lead
-          our company's AI steering committee.
+          3DEXPERIENCE platform. I've been in the industry since 2010 — started as a
+          pattern making apprentice, worked at a fast-growing tech startup, and eventually
+          landed in the CAD world where I've been ever since.
         </p>
         <p style={{ marginTop: '12px' }}>
-          Outside of work I build apps, games, and tools — mostly with React, TypeScript,
-          and whatever AI I can get my hands on. I also keep reptiles, which is how
-          Crittr Havens was born (turns out tracking feeding schedules gets complicated
-          fast). If it can be built, I'm probably already thinking about it.
+          These days I'm on our company's AI steering committee, and outside of work I
+          build apps, games, and tools — mostly with React, TypeScript, and whatever AI
+          I can get my hands on. My wife and I keep reptiles, which is how CrittrHavens
+          was born (tracking feeding schedules, sheds, and habitat conditions gets
+          complicated fast when you have over 15 tanks).
         </p>
       </div>
 
@@ -240,34 +240,39 @@ function About() {
         <h3 className="timeline-title">Journey</h3>
         <div className="timeline">
           <div className="timeline-item" style={{ '--delay': '0.1s' } as React.CSSProperties}>
-            <span className="timeline-date">2017</span>
-            <h4 className="timeline-item-title">Joined GSC</h4>
-            <p className="timeline-desc">Started as an Applications Engineer at a SolidWorks VAR, supporting CAD/PDM customers.</p>
+            <span className="timeline-date">2010</span>
+            <h4 className="timeline-item-title">Pattern Making Apprentice</h4>
+            <p className="timeline-desc">Started in manufacturing, learning the craft from the ground up.</p>
           </div>
           <div className="timeline-item" style={{ '--delay': '0.15s' } as React.CSSProperties}>
-            <span className="timeline-date">2017</span>
-            <h4 className="timeline-item-title">Published SOLIDWORKS Superhero</h4>
-            <p className="timeline-desc">Wrote the "How to Be a SOLIDWORKS Superhero" e-book at GSC.</p>
+            <span className="timeline-date">2018</span>
+            <h4 className="timeline-item-title">Training 2.0 at GSC</h4>
+            <p className="timeline-desc">Co-led an initiative to transform GSC's training department — built out remote classroom infrastructure, evaluated LMS platforms, designed new KPI tracking, and helped shift training from classroom-only to a flexible virtual + in-person model.</p>
           </div>
           <div className="timeline-item" style={{ '--delay': '0.2s' } as React.CSSProperties}>
-            <span className="timeline-date">2018</span>
-            <h4 className="timeline-item-title">Training 2.0</h4>
-            <p className="timeline-desc">Led initiative to modernize training delivery and content.</p>
+            <span className="timeline-date">2019–2020</span>
+            <h4 className="timeline-item-title">Tech Canary</h4>
+            <p className="timeline-desc">Worked at one of Wisconsin's fastest-growing tech startups, later acquired by Applied Systems.</p>
           </div>
           <div className="timeline-item" style={{ '--delay': '0.3s' } as React.CSSProperties}>
-            <span className="timeline-date">2023</span>
+            <span className="timeline-date">2021</span>
             <h4 className="timeline-item-title">3DEXPERIENCE Specialist</h4>
-            <p className="timeline-desc">Expanded into cloud platform administration and deployment.</p>
+            <p className="timeline-desc">Expanded into cloud platform administration and deployment at GSC.</p>
           </div>
           <div className="timeline-item highlight" style={{ '--delay': '0.4s' } as React.CSSProperties}>
             <span className="timeline-date">2024</span>
+            <h4 className="timeline-item-title">Started Exploring Generative AI</h4>
+            <p className="timeline-desc">Dove into generative AI, agent workflows, and building with LLMs.</p>
+          </div>
+          <div className="timeline-item" style={{ '--delay': '0.45s' } as React.CSSProperties}>
+            <span className="timeline-date">2025</span>
             <h4 className="timeline-item-title">Started Building Apps</h4>
-            <p className="timeline-desc">Launched Cinéphile Daily, began Crittr Havens, and dove into AI tooling.</p>
+            <p className="timeline-desc">Launched Cinéphile Daily, began CrittrHavens, and started shipping side projects.</p>
           </div>
           <div className="timeline-item" style={{ '--delay': '0.5s' } as React.CSSProperties}>
-            <span className="timeline-date">2025</span>
+            <span className="timeline-date">2026</span>
             <h4 className="timeline-item-title">AI Steering Committee + Internal Tools</h4>
-            <p className="timeline-desc">Joined the company AI steering committee. Building RAG systems, Price Navigator, and exploring agent workflows.</p>
+            <p className="timeline-desc">Joined the company AI steering committee. Building RAG systems, Price Navigator, and internal AI tooling.</p>
           </div>
         </div>
       </div>
@@ -336,12 +341,12 @@ export default function App() {
           <div className="title-block-inner">
             <div className="title-main">
               <h1>Cody P.</h1>
-              <p className="subtitle">Applications Engineer · Builder · Tinkerer</p>
+              <p className="subtitle">Applications Engineer · SolidWorks · 3DEXPERIENCE</p>
             </div>
             <div className="title-meta">
               <div className="meta-row">
                 <span className="meta-label">Fuel</span>
-                <span className="meta-value">COFFEE & CURIOSITY</span>
+                <span className="meta-value">RED BULL & CURIOSITY</span>
               </div>
               <div className="meta-row">
                 <span className="meta-label">Status</span>
