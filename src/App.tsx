@@ -112,6 +112,14 @@ function Projects() {
       points: ['Create & manage custom property lists', '8 industry templates + blank/default', 'Import existing files, hundreds of preloaded properties'],
     },
     {
+      title: 'CAD Benchmark',
+      subtitle: 'What PC do you need for SolidWorks?',
+      zone: 'cyan',
+      badge: 'LIVE',
+      link: 'https://cad-benchmark.vercel.app',
+      points: ['4-question quiz recommends a full PC build', 'Amazon affiliate links on every component', 'SolidWorks-specific hardware explanations'],
+    },
+    {
       title: 'Odds Oracle',
       subtitle: 'Quick-fire probability trainer',
       zone: 'purple',
