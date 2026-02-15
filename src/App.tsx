@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 
 type Tab = 'projects' | 'about' | 'blog' | 'contact'
 
@@ -442,8 +442,201 @@ function Contact() {
   )
 }
 
+interface LabProject {
+  name: string
+  url: string
+  category: string
+}
+
+const LAB_PROJECTS: LabProject[] = [
+  // Daily Games
+  { name: 'Cinéphile Daily', url: 'https://cinephile.codyp.xyz', category: 'Daily Games' },
+  { name: 'Chromacle', url: 'https://chromacle.vercel.app', category: 'Daily Games' },
+  { name: 'Geodle', url: 'https://geodle-six.vercel.app', category: 'Daily Games' },
+  { name: 'Pokédle', url: 'https://pokedle-pi.vercel.app', category: 'Daily Games' },
+  { name: 'Flaggle', url: 'https://flaggle-chi.vercel.app', category: 'Daily Games' },
+  { name: 'Cosmole', url: 'https://cosmole.vercel.app', category: 'Daily Games' },
+  { name: 'Elementle', url: 'https://elemle.vercel.app', category: 'Daily Games' },
+  { name: 'Capitadle', url: 'https://capitadle.vercel.app', category: 'Daily Games' },
+  { name: 'Spectrle', url: 'https://spectrle.vercel.app', category: 'Daily Games' },
+  { name: 'Reciple', url: 'https://reciple-one.vercel.app', category: 'Daily Games' },
+  { name: 'Stockle', url: 'https://stockle-rouge.vercel.app', category: 'Daily Games' },
+  { name: 'Astrodle', url: 'https://astrodle.vercel.app', category: 'Daily Games' },
+  { name: 'Quotle', url: 'https://quotle-swart.vercel.app', category: 'Daily Games' },
+  { name: 'Numbrle', url: 'https://numbrle.vercel.app', category: 'Daily Games' },
+  { name: 'Logodle', url: 'https://logodle.vercel.app', category: 'Daily Games' },
+  { name: 'Histodle', url: 'https://histodle.vercel.app', category: 'Daily Games' },
+  { name: 'Audiodle', url: 'https://audiodle.vercel.app', category: 'Daily Games' },
+  { name: 'The Daily Hub', url: 'https://daily-hub-nine.vercel.app', category: 'Daily Games' },
+
+  // Games & Interactive
+  { name: 'GREENLIGHT', url: 'https://greenlight-plum.vercel.app', category: 'Games & Interactive' },
+  { name: '21 Pixel Dojo', url: 'https://21pixel.codyp.xyz', category: 'Games & Interactive' },
+  { name: 'Poker Pixel Dojo', url: 'https://pokerpixel.codyp.xyz', category: 'Games & Interactive' },
+  { name: '1st & Roll', url: 'https://1standroll.codyp.xyz', category: 'Games & Interactive' },
+  { name: 'Odds Oracle', url: 'https://odds-oracle-three.vercel.app', category: 'Games & Interactive' },
+  { name: 'CSS Battle Solo', url: 'https://css-battle-solo.vercel.app', category: 'Games & Interactive' },
+  { name: 'Type Racer Solo', url: 'https://type-racer-solo.vercel.app', category: 'Games & Interactive' },
+  { name: 'Reaction Time', url: 'https://reaction-time-seven.vercel.app', category: 'Games & Interactive' },
+  { name: 'Geography Streak', url: 'https://geography-streak.vercel.app', category: 'Games & Interactive' },
+  { name: 'Would You Rather', url: 'https://would-you-rather-cody-p.vercel.app', category: 'Games & Interactive' },
+  { name: 'Déjà Vu', url: 'https://deja-vu-mu.vercel.app', category: 'Games & Interactive' },
+  { name: 'Fake or Real', url: 'https://fake-or-real.vercel.app', category: 'Games & Interactive' },
+  { name: 'Decision Roulette', url: 'https://decision-roulette-blush.vercel.app', category: 'Games & Interactive' },
+  { name: 'One Word Story', url: 'https://one-word-story-mauve.vercel.app', category: 'Games & Interactive' },
+
+  // Visualizations & Experiences
+  { name: 'Scale of...', url: 'https://scale-of.vercel.app', category: 'Visualizations' },
+  { name: 'Scale of Money', url: 'https://scale-of-money.vercel.app', category: 'Visualizations' },
+  { name: 'Spend the Fortune', url: 'https://spend-the-fortune.vercel.app', category: 'Visualizations' },
+  { name: 'The Money Printer', url: 'https://money-printer-two.vercel.app', category: 'Visualizations' },
+  { name: 'Life in Weeks', url: 'https://life-in-weeks-orcin-xi.vercel.app', category: 'Visualizations' },
+  { name: 'Life in Presidents', url: 'https://life-in-presidents.vercel.app', category: 'Visualizations' },
+  { name: 'Earth Right Now', url: 'https://earth-right-now.vercel.app', category: 'Visualizations' },
+  { name: 'How Many Heartbeats', url: 'https://how-many-heartbeats.vercel.app', category: 'Visualizations' },
+  { name: 'How Fast Are You Aging', url: 'https://how-fast-aging.vercel.app', category: 'Visualizations' },
+  { name: 'How Many [X] Tall', url: 'https://how-many-tall.vercel.app', category: 'Visualizations' },
+  { name: 'Timezone Roulette', url: 'https://timezone-roulette.vercel.app', category: 'Visualizations' },
+  { name: 'Forgetting Curve', url: 'https://forgetting-curve-two.vercel.app', category: 'Visualizations' },
+  { name: 'Comfort Zone Map', url: 'https://comfort-zone-map.vercel.app', category: 'Visualizations' },
+  { name: 'Color of Music', url: 'https://color-of-music.vercel.app', category: 'Visualizations' },
+
+  // Personality & Self-Discovery
+  { name: 'Vibe Check', url: 'https://vibe-check-cody-p.vercel.app', category: 'Personality' },
+  { name: 'Mood Ring', url: 'https://mood-ring-sepia.vercel.app', category: 'Personality' },
+  { name: 'Superpower Test', url: 'https://superpower-test.vercel.app', category: 'Personality' },
+  { name: 'Social Battery', url: 'https://social-battery-steel.vercel.app', category: 'Personality' },
+  { name: 'Attention Span Test', url: 'https://attention-span-test.vercel.app', category: 'Personality' },
+  { name: 'Sound of Your Name', url: 'https://sound-of-your-name.vercel.app', category: 'Personality' },
+  { name: 'Empathy Machine', url: 'https://empathy-machine.vercel.app', category: 'Personality' },
+  { name: 'Dream Journal', url: 'https://dream-journal-xi.vercel.app', category: 'Personality' },
+
+  // Creative & Social
+  { name: 'Stranger Compliments', url: 'https://stranger-compliments.vercel.app', category: 'Creative' },
+  { name: 'Future Letter', url: 'https://future-letter-six.vercel.app', category: 'Creative' },
+  { name: 'The Last Photo', url: 'https://the-last-photo.vercel.app', category: 'Creative' },
+  { name: 'Movie Pitch Generator', url: 'https://movie-pitch-generator-six.vercel.app', category: 'Creative' },
+  { name: 'Emoji Translator', url: 'https://emoji-translator-brown.vercel.app', category: 'Creative' },
+  { name: 'Pixel Art Yourself', url: 'https://pixel-art-yourself.vercel.app', category: 'Creative' },
+  { name: 'Infinite Fusion', url: 'https://infinite-fusion-two.vercel.app', category: 'Creative' },
+  { name: 'The Password Game', url: 'https://password-game-smoky.vercel.app', category: 'Creative' },
+  { name: 'Better Useless Web', url: 'https://better-useless-web.vercel.app', category: 'Creative' },
+
+  // Dev Tools
+  { name: 'JSON Formatter', url: 'https://json-formatter-cody-p.vercel.app', category: 'Dev Tools' },
+  { name: 'Regex Playground', url: 'https://regex-playground-khaki.vercel.app', category: 'Dev Tools' },
+  { name: 'Markdown Previewer', url: 'https://markdown-previewer-cody-p.vercel.app', category: 'Dev Tools' },
+  { name: 'ASCII Art Generator', url: 'https://ascii-art-generator-one.vercel.app', category: 'Dev Tools' },
+  { name: 'Gradient Generator', url: 'https://gradient-generator-red.vercel.app', category: 'Dev Tools' },
+  { name: 'Font Pairing', url: 'https://font-pairing-woad.vercel.app', category: 'Dev Tools' },
+  { name: 'Color Palette Thief', url: 'https://color-palette-thief.vercel.app', category: 'Dev Tools' },
+
+  // SolidWorks & Engineering
+  { name: 'Property Perfect', url: 'https://properties.codyp.xyz', category: 'Engineering' },
+  { name: 'CAD Benchmark', url: 'https://cad-benchmark.vercel.app', category: 'Engineering' },
+  { name: 'CAD PC Builder', url: 'https://cad-pc-builder.vercel.app', category: 'Engineering' },
+  { name: 'SW Shortcut Trainer', url: 'https://sw-shortcut-trainer.vercel.app', category: 'Engineering' },
+]
+
+function Lab() {
+  const categories = [...new Set(LAB_PROJECTS.map(p => p.category))]
+
+  return (
+    <div style={{
+      minHeight: '100vh',
+      background: 'var(--bg, #0a0a0f)',
+      color: 'var(--text, #e0ddd8)',
+      padding: '40px 24px',
+      fontFamily: 'var(--font-body, system-ui)',
+    }}>
+      <div style={{ maxWidth: 900, margin: '0 auto' }}>
+        <div style={{ marginBottom: 40 }}>
+          <h1 style={{
+            fontFamily: 'var(--font-display, system-ui)',
+            fontSize: '2rem',
+            fontWeight: 700,
+            letterSpacing: '-0.02em',
+            marginBottom: 4,
+          }}>
+            🧪 The Lab
+          </h1>
+          <p style={{ opacity: 0.5, fontSize: '0.85rem' }}>
+            {LAB_PROJECTS.length} projects · All deployed on Vercel
+          </p>
+        </div>
+
+        {categories.map(cat => {
+          const projects = LAB_PROJECTS.filter(p => p.category === cat)
+          return (
+            <div key={cat} style={{ marginBottom: 32 }}>
+              <h2 style={{
+                fontFamily: 'var(--font-display, system-ui)',
+                fontSize: '0.8rem',
+                textTransform: 'uppercase',
+                letterSpacing: '0.1em',
+                color: 'var(--blueprint-dark, #6a8caf)',
+                marginBottom: 12,
+                paddingBottom: 6,
+                borderBottom: '1px solid rgba(255,255,255,0.08)',
+              }}>
+                {cat} <span style={{ opacity: 0.4 }}>({projects.length})</span>
+              </h2>
+              <div style={{
+                display: 'grid',
+                gridTemplateColumns: 'repeat(auto-fill, minmax(260px, 1fr))',
+                gap: 8,
+              }}>
+                {projects.map(p => (
+                  <a
+                    key={p.name}
+                    href={p.url}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    style={{
+                      display: 'flex',
+                      alignItems: 'center',
+                      justifyContent: 'space-between',
+                      padding: '10px 14px',
+                      background: 'rgba(255,255,255,0.03)',
+                      borderRadius: 6,
+                      textDecoration: 'none',
+                      color: 'inherit',
+                      fontSize: '0.9rem',
+                      transition: 'background 0.15s',
+                      border: '1px solid rgba(255,255,255,0.05)',
+                    }}
+                    onMouseEnter={e => (e.currentTarget.style.background = 'rgba(255,255,255,0.08)')}
+                    onMouseLeave={e => (e.currentTarget.style.background = 'rgba(255,255,255,0.03)')}
+                  >
+                    <span>{p.name}</span>
+                    <span style={{ opacity: 0.3, fontSize: '0.75rem' }}>↗</span>
+                  </a>
+                ))}
+              </div>
+            </div>
+          )
+        })}
+
+        <div style={{ marginTop: 48, textAlign: 'center', opacity: 0.3, fontSize: '0.75rem' }}>
+          codyp.xyz
+        </div>
+      </div>
+    </div>
+  )
+}
+
 export default function App() {
   const [activeTab, setActiveTab] = useState<Tab>('projects')
+  const [showLab, setShowLab] = useState(false)
+
+  useEffect(() => {
+    const checkHash = () => setShowLab(window.location.hash === '#lab')
+    checkHash()
+    window.addEventListener('hashchange', checkHash)
+    return () => window.removeEventListener('hashchange', checkHash)
+  }, [])
+
+  if (showLab) return <Lab />
 
   return (
     <>
