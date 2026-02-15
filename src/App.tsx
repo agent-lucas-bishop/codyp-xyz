@@ -15,20 +15,121 @@ const today = new Date().toLocaleDateString('en-US', {
   year: 'numeric',
 }).toUpperCase().replace(',', '')
 
+interface Project {
+  title: string
+  subtitle: string
+  zone: string
+  badge: string
+  link?: string
+  ogImage?: string
+  metrics?: { value: string; label: string }[]
+  points: string[]
+}
+
+function CardPreview({ src }: { src?: string }) {
+  const [failed, setFailed] = useState(false)
+  if (!src || failed) return null
+  return (
+    <div className="card-preview">
+      <img src={src} alt="" onError={() => setFailed(true)} />
+    </div>
+  )
+}
+
+function ProjectCard({ p }: { p: Project }) {
+  const Tag = p.link ? 'a' : 'div'
+  const linkProps = p.link
+    ? { href: p.link, target: '_blank', rel: 'noopener noreferrer' }
+    : {}
+  return (
+    <Tag
+      key={p.title}
+      className="content-card"
+      data-zone={p.zone}
+      {...linkProps}
+      style={p.link ? { textDecoration: 'none', color: 'inherit' } : undefined}
+    >
+      <div className="card-zone-marker" />
+      <CardPreview src={p.ogImage} />
+      <div className="card-content">
+        <div className="card-header">
+          <div>
+            <h3 className="card-title">{p.title}</h3>
+            <p className="card-subtitle">{p.subtitle}</p>
+          </div>
+          <span className="card-badge">{p.badge}</span>
+        </div>
+        {p.metrics && (
+          <div className="card-metrics">
+            {p.metrics.map((m) => (
+              <div className="metric" key={m.label}>
+                <div className="metric-value">{m.value}</div>
+                <div className="metric-label">{m.label}</div>
+              </div>
+            ))}
+          </div>
+        )}
+        <h4 className="card-section-label">Key Points</h4>
+        <ul className="card-list">
+          {p.points.map((pt) => (
+            <li key={pt}>{pt}</li>
+          ))}
+        </ul>
+      </div>
+    </Tag>
+  )
+}
+
 function Projects() {
-  const projects = [
+  const publicProjects: Project[] = [
     {
       title: 'Cinéphile Daily',
       subtitle: 'Daily movie trivia game',
       zone: 'orange',
       badge: 'LIVE',
       link: 'https://cinephile.codyp.xyz',
+      ogImage: 'https://cinephile.codyp.xyz/og-image.png',
       metrics: [
-        { value: '3', label: 'Games' },
+        { value: '3', label: 'Mini-Games' },
         { value: 'Daily', label: 'Refresh' },
       ],
-      points: ['Three daily movie puzzles', 'Art deco cinema aesthetic', 'TMDB-powered'],
+      points: ['The Credits, The Poster, The Year', 'Art deco cinema aesthetic', 'TMDB-powered'],
     },
+    {
+      title: 'Property Perfect',
+      subtitle: 'SOLIDWORKS properties.txt editor',
+      zone: 'cyan',
+      badge: 'LIVE',
+      link: 'https://properties.codyp.xyz',
+      points: ['Create & manage custom property lists', '8 industry templates + blank/default', 'Import existing files, hundreds of preloaded properties'],
+    },
+    {
+      title: '21 Pixel Dojo',
+      subtitle: 'Blackjack training app',
+      zone: 'red',
+      badge: 'PUBLIC BETA',
+      link: 'https://21pixel.codyp.xyz',
+      points: ["Play mode (Vinnie's Table) + 4 training modes", "Mastery modes: Sensei's Dojo & Pat's Proving Ground", 'Belt ranking system & bankroll tracking'],
+    },
+    {
+      title: 'Poker Pixel Dojo',
+      subtitle: 'Video poker (Jacks or Better) trainer',
+      zone: 'purple',
+      badge: 'PUBLIC BETA',
+      link: 'https://pokerpixel.codyp.xyz',
+      points: ['Free Play, Training & Challenge modes', 'Expected value analysis', 'Optimal hold strategy guidance'],
+    },
+    {
+      title: '1st & Roll',
+      subtitle: 'Strategic football dice game',
+      zone: 'green',
+      badge: 'PUBLIC BETA',
+      link: 'https://1standroll.codyp.xyz',
+      points: ['VS Human or VS AI', 'Draft plays, roll dice, offense vs defense', '60-play games'],
+    },
+  ]
+
+  const privateProjects: Project[] = [
     {
       title: 'Crittr Havens',
       subtitle: 'Reptile management app',
@@ -41,32 +142,18 @@ function Projects() {
       points: ['Feeding schedules & shed tracking', 'Habitat management', 'React + Capacitor'],
     },
     {
-      title: 'Price List Search',
-      subtitle: 'Quote builder for sales teams',
+      title: 'Price Navigator',
+      subtitle: 'Pricing lookup & quote builder for sales teams',
       zone: 'cyan',
       badge: 'BETA',
-      points: ['Instant pricing lookup', 'Auto-generated quote requests', 'Eliminates 0.5-2 day delays'],
+      points: ['Instant pricing search', 'Auto-generated quote request emails', 'Eliminates 0.5–2 day turnaround delays'],
     },
     {
       title: 'Tech Support RAG',
       subtitle: 'AI-powered SolidWorks knowledge base',
       zone: 'purple',
       badge: 'PLANNED',
-      points: ['RAG over hundreds of thousands of KB articles', 'AI chat interface', 'Approved by Dassault'],
-    },
-    {
-      title: 'Blackjack Trainer',
-      subtitle: 'Learn optimal blackjack strategy',
-      zone: 'red',
-      badge: 'READY',
-      points: ['React web app', 'Ready for mobile deployment'],
-    },
-    {
-      title: 'Football Dice',
-      subtitle: 'Dice-based football game',
-      zone: 'gray',
-      badge: 'READY',
-      points: ['React web app', 'Ready for mobile deployment'],
+      points: ['RAG over hundreds of thousands of KB articles', 'AI chat interface'],
     },
   ]
 
@@ -76,49 +163,20 @@ function Projects() {
         <span className="section-number">01</span>
         <h2 className="section-title">Projects</h2>
       </div>
+
+      <p className="section-subtitle">Public — try them out</p>
       <div className="card-grid">
-        {projects.map((p) => {
-          const Tag = p.link ? 'a' : 'div'
-          const linkProps = p.link
-            ? { href: p.link, target: '_blank', rel: 'noopener noreferrer' }
-            : {}
-          return (
-            <Tag
-              key={p.title}
-              className="content-card"
-              data-zone={p.zone}
-              {...linkProps}
-              style={p.link ? { textDecoration: 'none', color: 'inherit' } : undefined}
-            >
-              <div className="card-zone-marker" />
-              <div className="card-content">
-                <div className="card-header">
-                  <div>
-                    <h3 className="card-title">{p.title}</h3>
-                    <p className="card-subtitle">{p.subtitle}</p>
-                  </div>
-                  <span className="card-badge">{p.badge}</span>
-                </div>
-                {p.metrics && (
-                  <div className="card-metrics">
-                    {p.metrics.map((m) => (
-                      <div className="metric" key={m.label}>
-                        <div className="metric-value">{m.value}</div>
-                        <div className="metric-label">{m.label}</div>
-                      </div>
-                    ))}
-                  </div>
-                )}
-                <h4 className="card-section-label">Key Points</h4>
-                <ul className="card-list">
-                  {p.points.map((pt) => (
-                    <li key={pt}>{pt}</li>
-                  ))}
-                </ul>
-              </div>
-            </Tag>
-          )
-        })}
+        {publicProjects.map((p) => <ProjectCard key={p.title} p={p} />)}
+      </div>
+
+      <div className="section-header" style={{ marginTop: 'var(--space-4)' }}>
+        <span className="section-number">02</span>
+        <h2 className="section-title">Projects</h2>
+      </div>
+
+      <p className="section-subtitle">Private — professional & internal tools</p>
+      <div className="card-grid">
+        {privateProjects.map((p) => <ProjectCard key={p.title} p={p} />)}
       </div>
     </section>
   )
@@ -145,9 +203,16 @@ function About() {
         <span className="callout-label">Who I Am</span>
         <h4>Applications Engineer by day, builder by night</h4>
         <p>
-          I'm an Applications Engineer for SolidWorks and the 3DEXPERIENCE platform,
-          based in Milwaukee, WI. Outside of work I build apps, games, and tools —
-          mostly with React, TypeScript, and whatever AI tools I can get my hands on.
+          I'm an Applications Engineer at GSC, where I work with SolidWorks and the
+          3DEXPERIENCE platform. I've been in the industry since 2017 — long enough to
+          publish an e-book (<em>How to Be a SOLIDWORKS Superhero</em>) and help lead
+          our company's AI steering committee.
+        </p>
+        <p style={{ marginTop: '12px' }}>
+          Outside of work I build apps, games, and tools — mostly with React, TypeScript,
+          and whatever AI I can get my hands on. I also keep reptiles, which is how
+          Crittr Havens was born (turns out tracking feeding schedules gets complicated
+          fast). If it can be built, I'm probably already thinking about it.
         </p>
       </div>
 
@@ -175,24 +240,34 @@ function About() {
         <h3 className="timeline-title">Journey</h3>
         <div className="timeline">
           <div className="timeline-item" style={{ '--delay': '0.1s' } as React.CSSProperties}>
-            <span className="timeline-date">2020</span>
-            <h4 className="timeline-item-title">Started at SolidWorks VAR</h4>
-            <p className="timeline-desc">Joined as an Applications Engineer supporting CAD/PDM customers.</p>
+            <span className="timeline-date">2017</span>
+            <h4 className="timeline-item-title">Joined GSC</h4>
+            <p className="timeline-desc">Started as an Applications Engineer at a SolidWorks VAR, supporting CAD/PDM customers.</p>
+          </div>
+          <div className="timeline-item" style={{ '--delay': '0.15s' } as React.CSSProperties}>
+            <span className="timeline-date">2017</span>
+            <h4 className="timeline-item-title">Published SOLIDWORKS Superhero</h4>
+            <p className="timeline-desc">Wrote the "How to Be a SOLIDWORKS Superhero" e-book at GSC.</p>
           </div>
           <div className="timeline-item" style={{ '--delay': '0.2s' } as React.CSSProperties}>
+            <span className="timeline-date">2018</span>
+            <h4 className="timeline-item-title">Training 2.0</h4>
+            <p className="timeline-desc">Led initiative to modernize training delivery and content.</p>
+          </div>
+          <div className="timeline-item" style={{ '--delay': '0.3s' } as React.CSSProperties}>
             <span className="timeline-date">2023</span>
             <h4 className="timeline-item-title">3DEXPERIENCE Specialist</h4>
             <p className="timeline-desc">Expanded into cloud platform administration and deployment.</p>
           </div>
-          <div className="timeline-item highlight" style={{ '--delay': '0.3s' } as React.CSSProperties}>
+          <div className="timeline-item highlight" style={{ '--delay': '0.4s' } as React.CSSProperties}>
             <span className="timeline-date">2024</span>
             <h4 className="timeline-item-title">Started Building Apps</h4>
             <p className="timeline-desc">Launched Cinéphile Daily, began Crittr Havens, and dove into AI tooling.</p>
           </div>
-          <div className="timeline-item" style={{ '--delay': '0.4s' } as React.CSSProperties}>
+          <div className="timeline-item" style={{ '--delay': '0.5s' } as React.CSSProperties}>
             <span className="timeline-date">2025</span>
-            <h4 className="timeline-item-title">AI + Internal Tools</h4>
-            <p className="timeline-desc">Building RAG systems, price list tools, and exploring agent workflows.</p>
+            <h4 className="timeline-item-title">AI Steering Committee + Internal Tools</h4>
+            <p className="timeline-desc">Joined the company AI steering committee. Building RAG systems, Price Navigator, and exploring agent workflows.</p>
           </div>
         </div>
       </div>
@@ -235,11 +310,15 @@ function Contact() {
             </a>
           </li>
           <li>
+            <a href="https://www.linkedin.com/in/codypendzich/" target="_blank" rel="noopener noreferrer">
+              LinkedIn — Cody Pendzich
+            </a>
+          </li>
+          <li>
             <a href="mailto:cody@codyp.xyz">
               Email — cody@codyp.xyz
             </a>
           </li>
-          <li>LinkedIn — Coming soon</li>
         </ul>
       </div>
     </section>
@@ -261,8 +340,8 @@ export default function App() {
             </div>
             <div className="title-meta">
               <div className="meta-row">
-                <span className="meta-label">Location</span>
-                <span className="meta-value">MILWAUKEE, WI</span>
+                <span className="meta-label">Fuel</span>
+                <span className="meta-value">COFFEE & CURIOSITY</span>
               </div>
               <div className="meta-row">
                 <span className="meta-label">Status</span>

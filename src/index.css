@@ -278,6 +278,30 @@ a:hover {
 .content-card[data-zone="red"] { --zone-color: var(--zone-red); }
 .content-card[data-zone="gray"] { --zone-color: var(--zone-gray); }
 
+.card-preview {
+  aspect-ratio: 2 / 1;
+  overflow: hidden;
+  border-bottom: var(--border-width) solid var(--blueprint-dark);
+  margin-left: 12px;
+}
+
+.card-preview img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+.section-subtitle {
+  font-family: var(--font-display);
+  font-size: 0.8rem;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--text-muted);
+  margin-bottom: var(--space-3);
+  margin-top: calc(var(--space-1) * -1);
+}
+
 .card-zone-marker {
   position: absolute;
   top: -1px;
