@@ -104,6 +104,7 @@ function Projects() {
       zone: 'green',
       badge: 'LIVE',
       link: 'https://whosthatvillager.codyp.xyz',
+      ogImage: 'https://whosthatvillager.codyp.xyz/og-image.png',
       metrics: [
         { value: '413', label: 'Villagers' },
         { value: 'Daily', label: 'Refresh' },
