@@ -1,5 +1,6 @@
 import { useState, useEffect } from 'react'
 import Lab from './Lab'
+import { blogPosts, BlogPost } from './blogData'
 import './lab.css'
 
 type Tab = 'projects' | 'about' | 'blog' | 'contact'
@@ -394,19 +395,106 @@ function About() {
   )
 }
 
+function renderMarkdown(md: string): string {
+  let html = md
+    // Code blocks
+    .replace(/```(\w*)\n([\s\S]*?)```/g, '<pre><code class="blog-codeblock">$2</code></pre>')
+    // Inline code
+    .replace(/`([^`]+)`/g, '<code class="blog-inline-code">$1</code>')
+    // Headers
+    .replace(/^### (.+)$/gm, '<h4 class="blog-h4">$1</h4>')
+    .replace(/^## (.+)$/gm, '<h3 class="blog-h3">$1</h3>')
+    // Bold + italic
+    .replace(/\*\*\*(.+?)\*\*\*/g, '<strong><em>$1</em></strong>')
+    // Bold
+    .replace(/\*\*(.+?)\*\*/g, '<strong>$1</strong>')
+    // Italic
+    .replace(/\*(.+?)\*/g, '<em>$1</em>')
+    // Links
+    .replace(/\[([^\]]+)\]\(([^)]+)\)/g, '<a href="$2" target="_blank" rel="noopener noreferrer">$1</a>')
+    // Horizontal rules
+    .replace(/^---$/gm, '<hr class="blog-hr" />')
+    // Unordered lists
+    .replace(/^- (.+)$/gm, '<li>$1</li>')
+    // Ordered lists
+    .replace(/^\d+\. (.+)$/gm, '<li>$1</li>')
+    // Wrap consecutive <li> in <ul>
+    .replace(/((?:<li>.*<\/li>\n?)+)/g, '<ul class="blog-list">$1</ul>')
+    // Paragraphs - split by double newline
+    .split('\n\n')
+    .map(block => {
+      const trimmed = block.trim()
+      if (!trimmed) return ''
+      if (trimmed.startsWith('<h') || trimmed.startsWith('<pre') || trimmed.startsWith('<ul') || trimmed.startsWith('<hr') || trimmed.startsWith('<ol')) return trimmed
+      return `<p>${trimmed.replace(/\n/g, '<br />')}</p>`
+    })
+    .join('\n')
+  return html
+}
+
+function BlogPostView({ post, onBack }: { post: BlogPost; onBack: () => void }) {
+  const isBishop = post.author === 'Bishop'
+  return (
+    <section className="section active">
+      <button className="blog-back-btn" onClick={onBack}>← Back to all posts</button>
+      <article className={`blog-article ${isBishop ? 'blog-article-bishop' : ''}`}>
+        <div className="blog-article-header">
+          <div className="blog-article-meta">
+            <span className="blog-article-date">{new Date(post.date + 'T12:00:00').toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' })}</span>
+            <span className={`blog-article-author ${isBishop ? 'blog-author-bishop' : ''}`}>
+              {isBishop && <span className="blog-bishop-badge">AI</span>}
+              {post.author}
+            </span>
+          </div>
+          <h2 className="blog-article-title">{post.title}</h2>
+          <div className="blog-tags">
+            {post.tags.map(t => <span key={t} className="blog-tag">{t}</span>)}
+          </div>
+        </div>
+        <div className="blog-article-body" dangerouslySetInnerHTML={{ __html: renderMarkdown(post.content) }} />
+      </article>
+    </section>
+  )
+}
+
 function Blog() {
+  const [selectedPost, setSelectedPost] = useState<BlogPost | null>(null)
+
+  if (selectedPost) {
+    return <BlogPostView post={selectedPost} onBack={() => setSelectedPost(null)} />
+  }
+
   return (
     <section className="section active">
       <div className="section-header">
         <span className="section-number">03</span>
         <h2 className="section-title">Blog</h2>
       </div>
-      <div className="callout info">
-        <span className="callout-label">Coming Soon</span>
-        <h4>Blog posts coming soon</h4>
-        <p>
-          Topics will include AI, development, SolidWorks tips, and building things.
-        </p>
+      <p className="section-subtitle">{blogPosts.length} posts about AI, building, and the overnight workflow</p>
+      <div className="blog-grid">
+        {blogPosts.map((post) => {
+          const isBishop = post.author === 'Bishop'
+          return (
+            <button
+              key={post.slug}
+              className={`blog-card ${isBishop ? 'blog-card-bishop' : ''}`}
+              onClick={() => setSelectedPost(post)}
+            >
+              <div className="blog-card-header">
+                <span className="blog-card-date">{new Date(post.date + 'T12:00:00').toLocaleDateString('en-US', { month: 'short', day: 'numeric' })}</span>
+                <span className={`blog-card-author ${isBishop ? 'blog-author-bishop' : ''}`}>
+                  {isBishop && <span className="blog-bishop-badge">AI</span>}
+                  {post.author}
+                </span>
+              </div>
+              <h3 className="blog-card-title">{post.title}</h3>
+              <p className="blog-card-excerpt">{post.excerpt}</p>
+              <div className="blog-tags">
+                {post.tags.slice(0, 3).map(t => <span key={t} className="blog-tag">{t}</span>)}
+              </div>
+            </button>
+          )
+        })}
       </div>
     </section>
   )

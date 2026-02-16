@@ -218,6 +218,10 @@ a:hover {
    ========================================================================== */
 .section {
   animation: fadeSlide 0.4s ease-out forwards;
+  background: var(--paper-white);
+  border-radius: 0 4px 4px 4px;
+  padding: 24px;
+  margin-top: -1px;
 }
 
 .section-header {
