@@ -457,11 +457,23 @@ function BlogPostView({ post, onBack }: { post: BlogPost; onBack: () => void }) 
   )
 }
 
-function Blog() {
-  const [selectedPost, setSelectedPost] = useState<BlogPost | null>(null)
+function Blog({ initialSlug }: { initialSlug?: string }) {
+  const [selectedPost, setSelectedPost] = useState<BlogPost | null>(
+    initialSlug ? blogPosts.find(p => p.slug === initialSlug) || null : null
+  )
+
+  const selectPost = (post: BlogPost) => {
+    window.location.hash = `blog/${post.slug}`
+    setSelectedPost(post)
+  }
+
+  const goBack = () => {
+    window.location.hash = 'blog'
+    setSelectedPost(null)
+  }
 
   if (selectedPost) {
-    return <BlogPostView post={selectedPost} onBack={() => setSelectedPost(null)} />
+    return <BlogPostView post={selectedPost} onBack={goBack} />
   }
 
   return (
@@ -478,7 +490,7 @@ function Blog() {
             <button
               key={post.slug}
               className={`blog-card ${isBishop ? 'blog-card-bishop' : ''}`}
-              onClick={() => setSelectedPost(post)}
+              onClick={() => selectPost(post)}
             >
               <div className="blog-card-header">
                 <span className="blog-card-date">{new Date(post.date + 'T12:00:00').toLocaleDateString('en-US', { month: 'short', day: 'numeric' })}</span>
@@ -707,15 +719,37 @@ function Lab() {
       </div>
 REMOVED_END */
 
+function parseHash(): { view: 'lab' } | { view: 'main'; tab: Tab; blogSlug?: string } {
+  const h = window.location.hash.replace(/^#/, '')
+  if (h === 'lab') return { view: 'lab' }
+  if (h.startsWith('blog/')) {
+    const slug = h.slice(5)
+    return { view: 'main', tab: 'blog', blogSlug: slug }
+  }
+  const validTabs: Tab[] = ['projects', 'about', 'blog', 'contact']
+  if (validTabs.includes(h as Tab)) return { view: 'main', tab: h as Tab }
+  return { view: 'main', tab: 'projects' }
+}
+
 export default function App() {
   const [activeTab, setActiveTab] = useState<Tab>('projects')
   const [showLab, setShowLab] = useState(false)
+  const [blogSlugFromHash, setBlogSlugFromHash] = useState<string | undefined>()
 
   useEffect(() => {
-    const checkHash = () => setShowLab(window.location.hash === '#lab')
-    checkHash()
-    window.addEventListener('hashchange', checkHash)
-    return () => window.removeEventListener('hashchange', checkHash)
+    const sync = () => {
+      const parsed = parseHash()
+      if (parsed.view === 'lab') {
+        setShowLab(true)
+      } else {
+        setShowLab(false)
+        setActiveTab(parsed.tab)
+        setBlogSlugFromHash(parsed.blogSlug)
+      }
+    }
+    sync()
+    window.addEventListener('hashchange', sync)
+    return () => window.removeEventListener('hashchange', sync)
   }, [])
 
   if (showLab) return <Lab />
@@ -752,7 +786,7 @@ export default function App() {
             <button
               key={t.id}
               className={`nav-tab${activeTab === t.id ? ' active' : ''}`}
-              onClick={() => setActiveTab(t.id)}
+              onClick={() => { window.location.hash = t.id; setActiveTab(t.id) }}
             >
               {t.label}
             </button>
@@ -761,7 +795,7 @@ export default function App() {
 
         {activeTab === 'projects' && <Projects />}
         {activeTab === 'about' && <About />}
-        {activeTab === 'blog' && <Blog />}
+        {activeTab === 'blog' && <Blog initialSlug={blogSlugFromHash} />}
         {activeTab === 'contact' && <Contact />}
 
         <footer className="footer">
