@@ -120,6 +120,7 @@ function Projects() {
       zone: 'cyan',
       badge: 'LIVE',
       link: 'https://properties.codyp.xyz',
+      ogImage: 'https://properties.codyp.xyz/og-image.png',
       points: ['Create & manage custom property lists', '8 industry templates + blank/default', 'Import existing files, hundreds of preloaded properties'],
     },
     {
@@ -128,6 +129,7 @@ function Projects() {
       zone: 'cyan',
       badge: 'LIVE',
       link: 'https://sw-shortcut-trainer.vercel.app',
+      ogImage: 'https://sw-shortcut-trainer.vercel.app/og-image.png',
       points: ['Practice mode with instant feedback', 'Covers all major SolidWorks shortcuts', 'Track your progress and accuracy'],
     },
   ]
@@ -314,25 +316,16 @@ function renderMarkdown(md: string): string {
     .replace(/((?:<li>.*<\/li>\n?)+)/g, '<ul class="blog-list">$1</ul>')
     // Paragraphs - split by double newline
     .split('\n\n')
-    .map((block, index) => {
+    .map((block) => {
       const trimmed = block.trim()
       if (!trimmed) return ''
       if (trimmed.startsWith('<')) return trimmed
-      // First real paragraph gets drop-cap class
-      const isFirstParagraph = index === 0 || (index <= 2 && !block.trim().startsWith('<'))
-      if (isFirstParagraph && !html.includes('blog-first-paragraph')) {
-        return `<p class="blog-first-paragraph">${trimmed.replace(/\n/g, '<br />')}</p>`
-      }
       return `<p>${trimmed.replace(/\n/g, '<br />')}</p>`
     })
     .join('\n')
 
-  // Mark only the actual first <p> as blog-first-paragraph (clean up duplicates)
-  let foundFirst = false
-  html = html.replace(/<p class="blog-first-paragraph">/g, () => {
-    if (!foundFirst) { foundFirst = true; return '<p class="blog-first-paragraph">'; }
-    return '<p>';
-  })
+  // Mark only the first <p> as blog-first-paragraph for drop cap
+  html = html.replace(/<p>/, '<p class="blog-first-paragraph">')
 
   return html
 }
