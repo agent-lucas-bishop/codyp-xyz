@@ -242,8 +242,262 @@
 
 .blog-article-body .blog-hr {
   border: none;
-  border-top: 1px solid rgba(106, 140, 175, 0.2);
+  height: 1px;
+  background: linear-gradient(90deg, transparent, rgba(106, 140, 175, 0.3), transparent);
+  margin: 32px 0;
+  position: relative;
+}
+
+.blog-article-body .blog-hr::after {
+  content: '· · ·';
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  background: var(--paper-white, #fff);
+  padding: 0 12px;
+  color: rgba(106, 140, 175, 0.4);
+  font-size: 0.9rem;
+  letter-spacing: 0.3em;
+}
+
+/* ==========================================================================
+   BLOG TYPOGRAPHY UPGRADES
+   ========================================================================== */
+.blog-article-body {
+  font-size: 1.05rem;
+  line-height: 1.8;
+}
+
+.blog-article-body p {
+  font-size: 1.05rem;
+  line-height: 1.8;
+  margin: 0 0 1.25em;
+  opacity: 0.88;
+}
+
+/* Drop cap on first paragraph */
+.blog-article-body .blog-first-paragraph::first-letter {
+  float: left;
+  font-size: 3.5em;
+  line-height: 0.8;
+  font-weight: 700;
+  font-family: Georgia, 'Times New Roman', serif;
+  color: var(--blueprint-dark, #1a365d);
+  padding-right: 8px;
+  padding-top: 4px;
+}
+
+.blog-article-bishop .blog-article-body .blog-first-paragraph::first-letter {
+  color: var(--zone-purple, #7c3aed);
+}
+
+/* ==========================================================================
+   EDITOR'S NOTE
+   ========================================================================== */
+.blog-editor-note {
+  background: #f0f7ff;
+  border-left: 4px solid var(--blueprint-light, #3182ce);
+  padding: 20px 24px;
   margin: 24px 0;
+  border-radius: 0 6px 6px 0;
+  position: relative;
+}
+
+.blog-editor-note::before {
+  content: '✎ Editor\'s Note';
+  display: block;
+  font-family: var(--font-display, 'JetBrains Mono', monospace);
+  font-size: 0.7rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  color: var(--blueprint-light, #3182ce);
+  margin-bottom: 10px;
+}
+
+.blog-editor-note p {
+  font-size: 0.95rem !important;
+  color: var(--text-secondary, #475569);
+  margin-bottom: 8px !important;
+}
+
+.blog-editor-note p:last-child {
+  margin-bottom: 0 !important;
+}
+
+.blog-article-bishop .blog-editor-note {
+  background: rgba(124, 58, 237, 0.06);
+  border-left-color: var(--zone-purple, #7c3aed);
+}
+
+.blog-article-bishop .blog-editor-note::before {
+  color: var(--zone-purple, #7c3aed);
+}
+
+/* ==========================================================================
+   PULL QUOTES
+   ========================================================================== */
+.blog-pullquote {
+  font-size: 1.35em;
+  font-weight: 600;
+  line-height: 1.5;
+  color: var(--text-primary, #1e293b);
+  border-left: 4px solid var(--blueprint-light, #3182ce);
+  padding: 16px 0 16px 24px;
+  margin: 32px 0;
+  font-style: italic;
+  opacity: 0.92;
+}
+
+.blog-article-bishop .blog-pullquote {
+  border-left-color: var(--zone-purple, #7c3aed);
+}
+
+/* ==========================================================================
+   KEY INSIGHT
+   ========================================================================== */
+.blog-insight {
+  background: rgba(13, 148, 136, 0.06);
+  border: 1px solid rgba(13, 148, 136, 0.15);
+  border-left: 4px solid var(--accent-opportunity, #0d9488);
+  padding: 20px 24px;
+  margin: 24px 0;
+  border-radius: 0 6px 6px 0;
+  position: relative;
+}
+
+.blog-insight::before {
+  content: '💡 Key Insight';
+  display: block;
+  font-family: var(--font-display, 'JetBrains Mono', monospace);
+  font-size: 0.7rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  color: var(--accent-opportunity, #0d9488);
+  margin-bottom: 10px;
+}
+
+.blog-insight p {
+  font-size: 0.95rem !important;
+  color: var(--text-secondary, #475569);
+  margin-bottom: 8px !important;
+}
+
+.blog-insight p:last-child {
+  margin-bottom: 0 !important;
+}
+
+/* ==========================================================================
+   DIALOGUE BLOCKS
+   ========================================================================== */
+.blog-dialogue {
+  background: rgba(106, 140, 175, 0.04);
+  border: 1px solid rgba(106, 140, 175, 0.12);
+  border-radius: 6px;
+  padding: 16px 20px;
+  margin: 24px 0;
+}
+
+.blog-dialogue-speaker {
+  display: block;
+  font-family: var(--font-display, 'JetBrains Mono', monospace);
+  font-size: 0.75rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  color: var(--blueprint-mid, #2c5282);
+  margin-bottom: 6px;
+}
+
+.blog-dialogue p {
+  font-size: 0.95rem !important;
+  font-style: italic;
+  padding-left: 12px;
+  border-left: 2px solid rgba(106, 140, 175, 0.2);
+  margin-bottom: 8px !important;
+}
+
+.blog-dialogue p:last-child {
+  margin-bottom: 0 !important;
+}
+
+/* ==========================================================================
+   BLOCKQUOTES
+   ========================================================================== */
+.blog-article-body blockquote {
+  border-left: 3px solid rgba(106, 140, 175, 0.3);
+  padding: 8px 0 8px 20px;
+  margin: 20px 0;
+  color: var(--text-secondary, #475569);
+  font-style: italic;
+}
+
+/* ==========================================================================
+   CODE BLOCKS (dark terminal)
+   ========================================================================== */
+.blog-article-body pre {
+  background: #1e1e2e;
+  border: 1px solid rgba(106, 140, 175, 0.15);
+  border-radius: 8px;
+  padding: 0;
+  overflow: hidden;
+  margin: 0 0 20px;
+  position: relative;
+}
+
+.blog-article-body pre::before {
+  content: '';
+  display: block;
+  height: 32px;
+  background: #16161e;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+  position: relative;
+}
+
+.blog-article-body pre::after {
+  content: '● ● ●';
+  position: absolute;
+  top: 8px;
+  left: 14px;
+  font-size: 0.5rem;
+  letter-spacing: 4px;
+  color: rgba(255, 255, 255, 0.15);
+}
+
+.blog-article-body .blog-codeblock {
+  display: block;
+  padding: 16px;
+  font-family: 'SF Mono', 'Fira Code', 'JetBrains Mono', monospace;
+  font-size: 0.82rem;
+  line-height: 1.6;
+  color: #cdd6f4;
+}
+
+.blog-article-body .blog-inline-code {
+  font-family: 'SF Mono', 'Fira Code', monospace;
+  font-size: 0.88em;
+  background: rgba(106, 140, 175, 0.12);
+  padding: 2px 6px;
+  border-radius: 3px;
+  color: var(--blueprint-light, #3182ce);
+}
+
+/* ==========================================================================
+   BLOG LIST CARDS — Enhanced
+   ========================================================================== */
+.blog-card {
+  border-left: 3px solid transparent;
+  transition: all 0.2s ease;
+}
+
+.blog-card:hover {
+  border-left-color: var(--blueprint-light, #3182ce);
+}
+
+.blog-card-bishop:hover {
+  border-left-color: #c084fc;
 }
 
 @media (max-width: 768px) {
@@ -252,6 +506,12 @@
   }
   .blog-article-title {
     font-size: 1.4rem;
+  }
+  .blog-article-body .blog-first-paragraph::first-letter {
+    font-size: 2.8em;
+  }
+  .blog-pullquote {
+    font-size: 1.15em;
   }
 }
 

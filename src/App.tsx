@@ -84,7 +84,7 @@ function ProjectCard({ p }: { p: Project }) {
 }
 
 function Projects() {
-  const publicProjects: Project[] = [
+  const dailyGames: Project[] = [
     {
       title: 'Cinéphile Daily',
       subtitle: 'Daily movie trivia game',
@@ -99,13 +99,20 @@ function Projects() {
       points: ['The Credits, The Poster, The Year', 'Art deco cinema aesthetic', 'TMDB-powered'],
     },
     {
-      title: 'The Money Printer',
-      subtitle: 'Watch money print at different speeds',
+      title: "Who's That Villager?",
+      subtitle: 'Daily Animal Crossing guessing game',
       zone: 'green',
       badge: 'LIVE',
-      link: 'https://money-printer-two.vercel.app',
-      points: ['23 tiers from minimum wage to global GDP', 'Bills evolve from singles to vault pallets', 'Real-time counters show earnings since page load'],
+      link: 'https://whosthatvillager.codyp.xyz',
+      metrics: [
+        { value: '413', label: 'Villagers' },
+        { value: 'Daily', label: 'Refresh' },
+      ],
+      points: ['Guess the villager from silhouette & clues', 'All 413 Animal Crossing villagers', 'Progressive hint system'],
     },
+  ]
+
+  const tools: Project[] = [
     {
       title: 'Property Perfect',
       subtitle: 'SOLIDWORKS properties.txt editor',
@@ -115,160 +122,12 @@ function Projects() {
       points: ['Create & manage custom property lists', '8 industry templates + blank/default', 'Import existing files, hundreds of preloaded properties'],
     },
     {
-      title: 'CAD Benchmark',
-      subtitle: 'What PC do you need for SolidWorks?',
+      title: 'SW Shortcut Trainer',
+      subtitle: 'Learn SolidWorks keyboard shortcuts',
       zone: 'cyan',
       badge: 'LIVE',
-      link: 'https://cad-benchmark.vercel.app',
-      points: ['4-question quiz recommends a full PC build', 'Amazon affiliate links on every component', 'SolidWorks-specific hardware explanations'],
-    },
-    {
-      title: 'Odds Oracle',
-      subtitle: 'Quick-fire probability trainer',
-      zone: 'purple',
-      badge: 'LIVE',
-      link: 'https://odds-oracle-three.vercel.app',
-      points: ['Guess real-world probabilities across 5 categories', 'Log-scale scoring rewards precision', '60 curated questions from casino to absurd'],
-    },
-    {
-      title: '21 Pixel Dojo',
-      subtitle: 'Blackjack training app',
-      zone: 'red',
-      badge: 'PUBLIC BETA',
-      link: 'https://21pixel.codyp.xyz',
-      points: ["Play mode (Vinnie's Table) + 4 training modes", "Mastery modes: Sensei's Dojo & Pat's Proving Ground", 'Belt ranking system & bankroll tracking'],
-    },
-    {
-      title: 'Poker Pixel Dojo',
-      subtitle: 'Video poker (Jacks or Better) trainer',
-      zone: 'purple',
-      badge: 'PUBLIC BETA',
-      link: 'https://pokerpixel.codyp.xyz',
-      points: ['Free Play, Training & Challenge modes', 'Expected value analysis', 'Optimal hold strategy guidance'],
-    },
-    {
-      title: '1st & Roll',
-      subtitle: 'Strategic football dice game',
-      zone: 'green',
-      badge: 'PUBLIC BETA',
-      link: 'https://1standroll.codyp.xyz',
-      points: ['VS Human or VS AI', 'Draft plays, roll dice, offense vs defense', '60-play games'],
-    },
-    {
-      title: 'Chromacle',
-      subtitle: 'Daily color guessing game',
-      zone: 'purple',
-      badge: 'LIVE',
-      link: 'https://chromacle.vercel.app',
-      points: ['Guess the daily color using HSL sliders', 'Visual feedback with proximity scoring', 'New color every day'],
-    },
-    {
-      title: 'Geodle',
-      subtitle: 'Daily geography challenge',
-      zone: 'green',
-      badge: 'LIVE',
-      link: 'https://geodle-six.vercel.app',
-      points: ['Guess the country from progressive clues', 'Distance and direction hints', 'Test your world knowledge daily'],
-    },
-    {
-      title: 'Pokédle',
-      subtitle: 'Daily Pokémon challenge',
-      zone: 'red',
-      badge: 'LIVE',
-      link: 'https://pokedle-pi.vercel.app',
-      points: ['Guess the daily Pokémon from stat comparisons', 'Type, generation & stat clues', 'New Pokémon every day'],
-    },
-    {
-      title: 'Flaggle',
-      subtitle: 'Daily flag challenge',
-      zone: 'orange',
-      badge: 'LIVE',
-      link: 'https://flaggle-chi.vercel.app',
-      points: ['Identify countries from progressively revealed flags', 'Multiple difficulty levels', 'Learn world flags daily'],
-    },
-    {
-      title: 'Scale of...',
-      subtitle: 'Interactive powers of 10 explorer',
-      zone: 'gray',
-      badge: 'LIVE',
-      link: 'https://scale-of.vercel.app',
-      points: ['Scroll from a grain of sand to the observable universe', '18 objects with SVG silhouettes and fun facts', 'Logarithmic scale with smooth transitions'],
-    },
-    {
-      title: 'GREENLIGHT',
-      subtitle: 'Movie studio roguelite',
-      zone: 'gray',
-      badge: 'PUBLIC BETA',
-      link: 'https://greenlight-plum.vercel.app',
-      points: ['Build a Hollywood empire through push-your-luck productions', 'Hire talent, pick genres, manage your studio', 'Roguelite progression with unlockables'],
-    },
-    {
-      title: 'Spend the Fortune',
-      subtitle: 'Try to spend $200 billion',
-      zone: 'cyan',
-      badge: 'LIVE',
-      link: 'https://spend-the-fortune.vercel.app',
-      points: ['Interactive wealth visualization', 'See how far $200 billion really goes', 'Fun perspective on extreme wealth'],
-    },
-    {
-      title: 'Cosmole',
-      subtitle: 'Daily celestial body guessing game',
-      zone: 'purple',
-      badge: 'LIVE',
-      link: 'https://cosmole.vercel.app',
-      points: ['Guess planets, moons, and more from progressive clues', 'Deep space visual theme', '38 celestial bodies with handcrafted clues'],
-    },
-    {
-      title: 'Life in Weeks',
-      subtitle: 'Visualize your entire life as a grid of dots',
-      zone: 'gray',
-      badge: 'LIVE',
-      link: 'https://life-in-weeks-orcin-xi.vercel.app',
-      points: ['Each dot represents one week of your life', 'Powerful perspective on time', 'Inspired by the Wait But Why visualization'],
-    },
-    {
-      title: 'The Daily Hub',
-      subtitle: 'Play all your daily challenges in one place',
-      zone: 'red',
-      badge: 'LIVE',
-      link: 'https://daily-hub-nine.vercel.app',
-      points: ['Unified portal for all daily games', 'Completion tracker resets daily', 'Retro arcade aesthetic'],
-    },
-    {
-      title: 'Earth Right Now',
-      subtitle: 'Real-time dashboard of our planet',
-      zone: 'cyan',
-      badge: 'LIVE',
-      link: 'https://earth-right-now.vercel.app',
-      points: ['ISS location, moon phase, population counter', 'Real-time data from public APIs', 'Contemplative pale blue dot aesthetic'],
-    },
-  ]
-
-  const privateProjects: Project[] = [
-    {
-      title: 'CrittrHavens',
-      subtitle: 'Reptile management app',
-      zone: 'green',
-      badge: 'IN DEV',
-      metrics: [
-        { value: '7', label: 'Months Dev' },
-        { value: 'iOS', label: 'Platform' },
-      ],
-      points: ['Feeding schedules, shed tracking & habitat management', 'Gets complicated fast with 15+ tanks', 'React + Capacitor for iOS'],
-    },
-    {
-      title: 'Price Navigator',
-      subtitle: 'Pricing lookup & quote builder for sales teams',
-      zone: 'cyan',
-      badge: 'BETA',
-      points: ['Instant pricing search', 'Auto-generated quote request emails', 'Eliminates 0.5–2 day turnaround delays'],
-    },
-    {
-      title: 'Tech Support RAG',
-      subtitle: 'AI-powered SolidWorks knowledge base',
-      zone: 'purple',
-      badge: 'PLANNED',
-      points: ['RAG over hundreds of thousands of KB articles', 'AI chat interface'],
+      link: 'https://sw-shortcut-trainer.vercel.app',
+      points: ['Practice mode with instant feedback', 'Covers all major SolidWorks shortcuts', 'Track your progress and accuracy'],
     },
   ]
 
@@ -276,22 +135,20 @@ function Projects() {
     <section className="section active">
       <div className="section-header">
         <span className="section-number">01</span>
-        <h2 className="section-title">Projects</h2>
+        <h2 className="section-title">Daily Games</h2>
       </div>
-
-      <p className="section-subtitle">Public — try them out</p>
+      <p className="section-subtitle">Play something new every day</p>
       <div className="card-grid">
-        {publicProjects.map((p) => <ProjectCard key={p.title} p={p} />)}
+        {dailyGames.map((p) => <ProjectCard key={p.title} p={p} />)}
       </div>
 
       <div className="section-header" style={{ marginTop: 'var(--space-4)' }}>
         <span className="section-number">02</span>
-        <h2 className="section-title">Projects</h2>
+        <h2 className="section-title">Engineering Tools</h2>
       </div>
-
-      <p className="section-subtitle">Private — professional & internal tools</p>
+      <p className="section-subtitle">SolidWorks utilities</p>
       <div className="card-grid">
-        {privateProjects.map((p) => <ProjectCard key={p.title} p={p} />)}
+        {tools.map((p) => <ProjectCard key={p.title} p={p} />)}
       </div>
     </section>
   )
@@ -396,7 +253,41 @@ function About() {
 }
 
 function renderMarkdown(md: string): string {
-  let html = md
+  // Phase 1: Process custom block directives BEFORE everything else
+  // These are > [!type] blocks that span multiple lines
+  let processed = md
+
+  // Editor's note blocks: > [!editor] ... (consecutive > lines)
+  processed = processed.replace(/^> \[!editor\]\s*\n((?:> .*\n?)*)/gm, (_match, body: string) => {
+    const content = body.replace(/^> ?/gm, '').trim()
+    return `\n\n<div class="blog-editor-note">${content}</div>\n\n`
+  })
+
+  // Pull quote blocks: > [!quote] ... 
+  processed = processed.replace(/^> \[!quote\]\s*\n((?:> .*\n?)*)/gm, (_match, body: string) => {
+    const content = body.replace(/^> ?/gm, '').trim()
+    return `\n\n<div class="blog-pullquote">${content}</div>\n\n`
+  })
+
+  // Insight blocks: > [!insight] ...
+  processed = processed.replace(/^> \[!insight\]\s*\n((?:> .*\n?)*)/gm, (_match, body: string) => {
+    const content = body.replace(/^> ?/gm, '').trim()
+    return `\n\n<div class="blog-insight">${content}</div>\n\n`
+  })
+
+  // Dialogue blocks: > [!dialogue speaker="Name"] ...
+  processed = processed.replace(/^> \[!dialogue speaker="([^"]+)"\]\s*\n((?:> .*\n?)*)/gm, (_match, speaker: string, body: string) => {
+    const content = body.replace(/^> ?/gm, '').trim()
+    return `\n\n<div class="blog-dialogue"><span class="blog-dialogue-speaker">${speaker}</span><p>${content}</p></div>\n\n`
+  })
+
+  // Standard blockquotes (remaining > lines not caught above)
+  processed = processed.replace(/^((?:> .*\n?)+)/gm, (match) => {
+    const content = match.replace(/^> ?/gm, '').trim()
+    return `\n\n<blockquote>${content}</blockquote>\n\n`
+  })
+
+  let html = processed
     // Code blocks
     .replace(/```(\w*)\n([\s\S]*?)```/g, '<pre><code class="blog-codeblock">$2</code></pre>')
     // Inline code
@@ -422,13 +313,26 @@ function renderMarkdown(md: string): string {
     .replace(/((?:<li>.*<\/li>\n?)+)/g, '<ul class="blog-list">$1</ul>')
     // Paragraphs - split by double newline
     .split('\n\n')
-    .map(block => {
+    .map((block, index) => {
       const trimmed = block.trim()
       if (!trimmed) return ''
-      if (trimmed.startsWith('<h') || trimmed.startsWith('<pre') || trimmed.startsWith('<ul') || trimmed.startsWith('<hr') || trimmed.startsWith('<ol')) return trimmed
+      if (trimmed.startsWith('<')) return trimmed
+      // First real paragraph gets drop-cap class
+      const isFirstParagraph = index === 0 || (index <= 2 && !block.trim().startsWith('<'))
+      if (isFirstParagraph && !html.includes('blog-first-paragraph')) {
+        return `<p class="blog-first-paragraph">${trimmed.replace(/\n/g, '<br />')}</p>`
+      }
       return `<p>${trimmed.replace(/\n/g, '<br />')}</p>`
     })
     .join('\n')
+
+  // Mark only the actual first <p> as blog-first-paragraph (clean up duplicates)
+  let foundFirst = false
+  html = html.replace(/<p class="blog-first-paragraph">/g, () => {
+    if (!foundFirst) { foundFirst = true; return '<p class="blog-first-paragraph">'; }
+    return '<p>';
+  })
+
   return html
 }
 
